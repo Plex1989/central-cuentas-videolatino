@@ -7,10 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f0f12;
-            --card-bg: #1a1a24;
+            /* Paleta de Colores Neón Pixel Studio */
+            --bg-color: #07070a;
+            --card-bg: rgba(15, 15, 23, 0.85);
             --text-color: #ffffff;
-            --text-muted: #a0a0b0;
+            --text-muted: #8fa0b5;
+            
+            /* Colores de Neón */
+            --neon-blue: #00f2fe;
+            --neon-green: #00ff87;
+            --neon-pink: #f107a3;
         }
 
         * {
@@ -22,6 +28,9 @@
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 242, 254, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(241, 7, 163, 0.05) 0%, transparent 40%);
             color: var(--text-color);
             display: flex;
             justify-content: center;
@@ -32,52 +41,77 @@
 
         .container {
             width: 100%;
-            max-width: 450px;
+            max-width: 440px;
             background: var(--card-bg);
-            border-radius: 20px;
-            padding: 35px 25px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 40px 28px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 
+                        0 0 20px rgba(0, 242, 254, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* ESTILO PARA TU LOGO DE PIXEL STUDIO */
+        /* Línea de brillo superior */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-green), var(--neon-blue), var(--neon-pink));
+        }
+
+        /* LOGO CON EFECTO DE TRANSPARENCIA Y BRILLO DE FONDO */
         .logo-img {
-            width: 140px;
+            width: 160px;
             height: auto;
-            border-radius: 15px;
-            margin-bottom: 15px;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+            /* Usamos drop-shadow en lugar de box-shadow para que el brillo siga la silueta del PNG transparente */
+            filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.35)) drop-shadow(0 0 25px rgba(241, 7, 163, 0.15));
+            transition: transform 0.3s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
         }
 
         .logo {
             font-size: 28px;
             font-weight: 700;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            letter-spacing: 1.5px;
+            margin-bottom: 4px;
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-green));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
         }
 
         .subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--neon-pink);
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(241, 7, 163, 0.3);
         }
 
         .instruction {
-            font-size: 15px;
-            margin-bottom: 25px;
-            line-height: 1.5;
-            color: #e0e0e0;
+            font-size: 14.5px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            color: var(--text-muted);
         }
 
         .btn-list {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 18px;
         }
 
         .btn {
@@ -85,70 +119,102 @@
             align-items: center;
             justify-content: center;
             padding: 16px;
-            border-radius: 12px;
+            border-radius: 14px;
             text-decoration: none;
             font-weight: 600;
             font-size: 16px;
             color: white;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
+        /* BOTÓN EMBY (Estilo Azul Cian Neón) */
         .btn-emby {
-            background: linear-gradient(135deg, #00c6ff, #0072ff);
-            border-bottom: 4px solid #0052b4;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(0, 114, 255, 0.05));
+            border-left: 4px solid var(--neon-blue);
+            color: var(--neon-blue);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.05);
         }
 
+        .btn-emby:hover {
+            background: linear-gradient(135deg, var(--neon-blue), #0072ff);
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* BOTÓN JELLYFIN 1 (Estilo Verde Lima Neón) */
         .btn-jelly99 {
-            background: linear-gradient(135deg, #b92b27, #1565c0);
-            border-bottom: 4px solid #0d47a1;
+            background: linear-gradient(135deg, rgba(0, 255, 135, 0.15), rgba(96, 239, 255, 0.05));
+            border-left: 4px solid var(--neon-green);
+            color: var(--neon-green);
+            box-shadow: 0 4px 15px rgba(0, 255, 135, 0.05);
         }
 
+        .btn-jelly99:hover {
+            background: linear-gradient(135deg, var(--neon-green), #60efff);
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 255, 135, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* BOTÓN JELLYFIN 2 (Estilo Rosa Magenta Neón) */
         .btn-jelly90 {
-            background: linear-gradient(135deg, #8e2de2, #4a00e0);
-            border-bottom: 4px solid #310097;
+            background: linear-gradient(135deg, rgba(241, 7, 163, 0.15), rgba(123, 47, 247, 0.05));
+            border-left: 4px solid var(--neon-pink);
+            color: var(--neon-pink);
+            box-shadow: 0 4px 15px rgba(241, 7, 163, 0.05);
+        }
+
+        .btn-jelly90:hover {
+            background: linear-gradient(135deg, var(--neon-pink), #7b2ff7);
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(241, 7, 163, 0.4);
+            transform: translateY(-2px);
         }
 
         .footer {
-            margin-top: 35px;
-            font-size: 12px;
-            color: var(--text-muted);
+            margin-top: 40px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: rgba(255, 255, 255, 0.2);
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <img src="https://api.screenshotone.com/v1/render?url=https%3A%2F%2Fstorage.googleapis.com%2Fmessages-attachments%2F1000934500.jpg&viewport_width=1024&viewport_height=768&device_scale_factor=1&format=jpg&image_quality=80&block_ads=true&block_cookie_banners=true&block_trackers=true&delay=0&timeout=30" alt="Logo Pixel Studio" class="logo-img">
+        <!-- LOGO EN FORMATO PNG TRANSPARENTE -->
+        <img src="logo.png" alt="Logo Pixel Studio" class="logo-img">
         
         <div class="logo">VIDEO LATINO</div>
         <div class="subtitle">Portal de Usuarios</div>
         
         <p class="instruction">
-            Selecciona el servidor donde se encuentra tu cuenta para verificar tus días restantes de servicio.
+            Selecciona el servidor de streaming donde se encuentra activa tu cuenta para gestionar y consultar tus días restantes.
         </p>
 
         <div class="btn-list">
+            <!-- BOTÓN EMBY -->
             <a href="http://emby.videolatino.net:8056/my/account" target="_blank" class="btn btn-emby">
                 Servidor EMBY VIP
             </a>
 
+            <!-- BOTÓN JELLYFIN 1 -->
             <a href="http://jelly99.videolatino.net:8056/my/account" target="_blank" class="btn btn-jelly99">
                 Servidor JELLYFIN 1 (99)
             </a>
 
+            <!-- BOTÓN JELLYFIN 2 -->
             <a href="http://jelly90.videolatino.net:8056/my/account" target="_blank" class="btn btn-jelly90">
                 Servidor JELLYFIN 2 (90)
             </a>
         </div>
 
         <div class="footer">
-            &copy; 2026 Video Latino. Todos los derechos reservados.
+            &copy; 2026 Video Latino &bull; Powered by Pixel Studio
         </div>
     </div>
 
