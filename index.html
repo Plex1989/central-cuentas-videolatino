@@ -4,248 +4,231 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Video Latino - Portal de Cuentas</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS para diseño fluido y ultra-moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Iconos y Fuentes Premium (Poppins para mantener la tipografía original) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
         :root {
-            /* Colores de Marca y Neón */
-            --primary-glow: rgba(0, 242, 254, 0.4);
-            --emby-color: #00a4dc;
-            --jelly-color: #00e676;
-            --jelly2-color: #f107a3;
-            --text-color: #ffffff;
-            --text-muted: #cbd5e1;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            --emby-glow: rgba(0, 164, 220, 0.4);
+            --jelly1-glow: rgba(0, 230, 118, 0.4);
+            --jelly2-glow: rgba(241, 7, 163, 0.4);
         }
 
         body {
             font-family: 'Poppins', sans-serif;
-            color: var(--text-color);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-            overflow-x: hidden;
-            
-            /* Fondo de Pantalla Cinematográfico de Alta Calidad */
+            background-color: #04060a;
+        }
+
+        /* Fondo de Pantalla Cinematográfico de Alta Calidad */
+        .cinema-bg {
             background: url('https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1600&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
         }
 
-        /* Capa de oscurecimiento y desenfoque profesional para el fondo */
-        body::before {
-            content: '';
+        /* Estilo premium de vidrio esmerilado con bisel de luz (Glassmorphism) */
+        .glass-card {
+            background: rgba(10, 15, 26, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Esferas de energía de neón animadas de fondo para dar más atmósfera */
+        .neon-orb {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(7, 7, 15, 0.9) 0%, rgba(15, 10, 25, 0.85) 100%);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            z-index: 1;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 440px;
-            position: relative;
-            z-index: 2;
-            
-            /* Tarjeta Flotante estilo Cristal (Glassmorphism) */
-            background: rgba(18, 18, 29, 0.65);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 28px;
-            padding: 45px 30px;
-            text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7),
-                        0 0 30px rgba(0, 242, 254, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: transform 0.3s ease;
-        }
-
-        /* Contenedor del Logo con brillo radial trasero para darle contraste */
-        .logo-wrapper {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 20px;
-            padding: 15px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0) 70%);
+            filter: blur(130px);
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 1;
+            animation: pulse-slow 10s infinite alternate;
         }
 
-        /* El Logo PNG con su glow blanco/cian para evitar que se pierdan los bordes negros */
-        .logo-img {
-            width: 145px;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7)) 
-                    drop-shadow(0 0 20px rgba(0, 242, 254, 0.3));
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .logo-img:hover {
-            transform: scale(1.08) rotate(2deg);
-        }
-
-        .logo {
-            font-size: 30px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
-            background: linear-gradient(45deg, #00f2fe, #4facfe);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
-        }
-
-        .subtitle {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #ff4b2b;
-            margin-bottom: 30px;
-            text-shadow: 0 0 10px rgba(255, 75, 43, 0.3);
-        }
-
-        .instruction {
-            font-size: 14.5px;
-            line-height: 1.6;
-            color: var(--text-muted);
-            margin-bottom: 35px;
-            font-weight: 300;
-        }
-
-        .btn-list {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        /* Botones estilo Cristal con Bordes de Neón e interactividad fluida */
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 18px;
-            border-radius: 16px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15.5px;
-            color: var(--text-color);
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
-            transition: all 0.6s ease;
-        }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
-        /* Estados Hover personalizados para simular iluminación */
-        .btn-emby {
-            border-left: 4px solid var(--emby-color);
-        }
-        .btn-emby:hover {
-            background: rgba(0, 164, 220, 0.15);
-            border-color: var(--emby-color);
-            box-shadow: 0 0 25px rgba(0, 164, 220, 0.3);
-            transform: translateY(-3px);
-        }
-
-        .btn-jelly1 {
-            border-left: 4px solid var(--jelly-color);
-        }
-        .btn-jelly1:hover {
-            background: rgba(0, 230, 118, 0.15);
-            border-color: var(--jelly-color);
-            box-shadow: 0 0 25px rgba(0, 230, 118, 0.3);
-            transform: translateY(-3px);
-        }
-
-        .btn-jelly2 {
-            border-left: 4px solid var(--jelly2-color);
-        }
-        .btn-jelly2:hover {
-            background: rgba(241, 7, 163, 0.15);
-            border-color: var(--jelly2-color);
-            box-shadow: 0 0 25px rgba(241, 7, 163, 0.3);
-            transform: translateY(-3px);
-        }
-
-        /* Comportamiento al hacer clic en móvil (Efecto de pulsación física) */
-        .btn:active {
-            transform: scale(0.97) translateY(-1px);
-        }
-
-        .footer {
-            margin-top: 45px;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: rgba(255, 255, 255, 0.25);
+        @keyframes pulse-slow {
+            0% { transform: scale(1) translate(0px, 0px); }
+            100% { transform: scale(1.25) translate(30px, -50px); }
         }
     </style>
 </head>
-<body>
+<body class="cinema-bg text-slate-100 min-h-screen flex flex-col justify-between relative overflow-x-hidden">
 
-    <div class="container">
-        <!-- Logo envuelto con glow de contraste trasero -->
-        <div class="logo-wrapper">
-            <img src="logo.png" alt="Logo Pixel Studio" class="logo-img">
+    <!-- Capa de oscurecimiento y desenfoque profesional para el fondo cinematográfico -->
+    <div class="absolute inset-0 bg-gradient-to-br from-[#07070f]/95 via-[#0e0a19]/90 to-[#07070f]/95 z-0"></div>
+
+    <!-- Orbes de Luz de Neón de Fondo (Para dar un look más inmersivo) -->
+    <div class="neon-orb w-[450px] h-[450px] bg-cyan-500 top-[-5%] left-[-10%]"></div>
+    <div class="neon-orb w-[500px] h-[500px] bg-[#f107a3] bottom-[5%] right-[-10%]" style="animation-delay: 4s;"></div>
+
+    <!-- Contenido Principal -->
+    <main class="container mx-auto px-4 py-10 md:py-16 max-w-6xl relative z-10 flex-grow flex flex-col justify-center items-center">
+        
+        <!-- Encabezado / Logo Principal -->
+        <div class="text-center mb-14 group">
+            <div class="relative inline-block">
+                <!-- Efecto de resplandor trasero para el logo de Pixel Studio -->
+                <div class="absolute inset-0 bg-cyan-500/10 rounded-full blur-2xl group-hover:bg-cyan-500/20 transition-all duration-700"></div>
+                <img src="logo.png" alt="Logo Pixel Studio" class="relative mx-auto w-48 md:w-56 h-auto drop-shadow-[0_0_35px_rgba(6,182,212,0.4)] transition-transform duration-500 group-hover:scale-105">
+            </div>
+            
+            <h1 class="text-3xl md:text-4xl font-extrabold mt-6 tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-200 to-blue-400">
+                VIDEO LATINO
+            </h1>
+            <div class="text-[11px] font-bold text-[#ff4b2b] uppercase tracking-[4px] mt-2 text-shadow-[0_0_10px_rgba(255,75,43,0.3)]">
+                Portal de Usuarios
+            </div>
+            <div class="h-[2px] w-24 bg-gradient-to-r from-cyan-500 via-emerald-500 to-pink-500 mx-auto mt-4 rounded-full shadow-[0_0_12px_rgba(6,182,212,0.8)]"></div>
+            
+            <p class="text-sm md:text-base text-slate-300 mt-5 max-w-lg mx-auto font-light leading-relaxed">
+                Selecciona tu servidor de streaming para revisar y gestionar tus días de servicio activos de manera segura y directa.
+            </p>
         </div>
-        
-        <div class="logo">VIDEO LATINO</div>
-        <div class="subtitle">Portal de Usuarios</div>
-        
-        <p class="instruction">
-            Selecciona tu servidor de streaming para revisar y gestionar tus días de servicio activos.
+
+        <!-- Panel de Control de Clientes (Botones de Cristal 3D Verticales con Logos Grandes) -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl px-2">
+            
+            <!-- TARJETA 1: SERVIDOR EMBY VIP (Glow Cyan) -->
+            <a href="http://emby.videolatino.net:8056/my/account" target="_blank" 
+               class="group relative block rounded-3xl transition-all duration-300 transform hover:-translate-y-2.5 active:translate-y-1">
+                
+                <!-- Sombra de Neón 3D trasera al pasar el mouse -->
+                <div class="absolute inset-0 bg-[#00a4dc]/0 rounded-3xl blur-2xl group-hover:bg-[#00a4dc]/15 transition-all duration-300"></div>
+                
+                <!-- Cuerpo de la tarjeta -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col items-center text-center border-b-[6px] border-b-cyan-950 hover:border-b-[#00a4dc] transition-all duration-300">
+                    
+                    <!-- Contenedor del Logo (Grande e Iluminado) -->
+                    <div class="relative w-full h-44 bg-slate-950/50 border border-white/5 rounded-2xl flex items-center justify-center p-6 shadow-[inset_0_4px_20px_rgba(0,0,0,0.7)] group-hover:border-[#00a4dc]/30 transition-colors mb-6">
+                        <img src="logo-emby.png" alt="Emby VIP" class="h-28 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(0,164,220,0.6)] group-hover:scale-110 transition-all duration-300">
+                        
+                        <!-- Etiqueta técnica de Puerto -->
+                        <div class="absolute top-3 left-3 flex items-center gap-1.5 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-0.5 rounded-full">
+                            <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-ping"></span>
+                            <span class="w-1.5 h-1.5 bg-cyan-400 rounded-full"></span>
+                            <span class="text-[9px] font-bold text-cyan-300 uppercase tracking-widest">PORT 8056</span>
+                        </div>
+                    </div>
+
+                    <!-- Información de Estado e Identificación -->
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
+                        <span class="text-xs tracking-widest text-emerald-400 font-semibold uppercase">ACCESO VIP</span>
+                    </div>
+                    
+                    <h2 class="text-lg font-bold text-white group-hover:text-cyan-400 transition-colors tracking-wide">
+                        Servidor EMBY VIP
+                    </h2>
+                    
+                    <p class="text-xs text-slate-400 font-light mt-2 max-w-xs leading-relaxed">
+                        Accede para ver tu suscripción y estatus activo de tu cuenta.
+                    </p>
+
+                    <!-- Botón de Acción Integrado -->
+                    <div class="mt-6 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-xs tracking-wider text-slate-300 group-hover:bg-[#00a4dc] group-hover:text-black group-hover:border-[#00a4dc] transition-all duration-300 uppercase font-bold shadow-md">
+                        Gestionar Cuenta <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- TARJETA 2: JELLYFIN 1 (99) (Glow Verde Neón) -->
+            <a href="http://jelly99.videolatino.net:8056/my/account" target="_blank" 
+               class="group relative block rounded-3xl transition-all duration-300 transform hover:-translate-y-2.5 active:translate-y-1">
+                
+                <!-- Sombra de Neón 3D trasera -->
+                <div class="absolute inset-0 bg-[#00e676]/0 rounded-3xl blur-2xl group-hover:bg-[#00e676]/15 transition-all duration-300"></div>
+                
+                <!-- Cuerpo de la tarjeta -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col items-center text-center border-b-[6px] border-b-emerald-950 hover:border-b-[#00e676] transition-all duration-300">
+                    
+                    <!-- Contenedor del Logo (Grande e Iluminado) -->
+                    <div class="relative w-full h-44 bg-slate-950/50 border border-white/5 rounded-2xl flex items-center justify-center p-6 shadow-[inset_0_4px_20px_rgba(0,0,0,0.7)] group-hover:border-[#00e676]/30 transition-colors mb-6">
+                        <img src="logo-jellyfin.png" alt="Jellyfin 1" class="h-28 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(0,230,118,0.6)] group-hover:scale-110 transition-all duration-300">
+                        
+                        <!-- Etiqueta técnica de Puerto -->
+                        <div class="absolute top-3 left-3 flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
+                            <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-ping"></span>
+                            <span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span>
+                            <span class="text-[9px] font-bold text-emerald-300 uppercase tracking-widest">SERVER 99</span>
+                        </div>
+                    </div>
+
+                    <!-- Información de Estado e Identificación -->
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
+                        <span class="text-xs tracking-widest text-emerald-400 font-semibold uppercase">SISTEMA ONLINE</span>
+                    </div>
+                    
+                    <h2 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors tracking-wide">
+                        Jellyfin 1 (99)
+                    </h2>
+                    
+                    <p class="text-xs text-slate-400 font-light mt-2 max-w-xs leading-relaxed">
+                        Control de credenciales y renovación de servicio para el nodo 99.
+                    </p>
+
+                    <!-- Botón de Acción Integrado -->
+                    <div class="mt-6 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-xs tracking-wider text-slate-300 group-hover:bg-[#00e676] group-hover:text-black group-hover:border-[#00e676] transition-all duration-300 uppercase font-bold shadow-md">
+                        Gestionar Cuenta <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                    </div>
+                </div>
+            </a>
+
+            <!-- TARJETA 3: JELLYFIN 2 (90) (Glow Rosa) -->
+            <a href="http://jelly90.videolatino.net:8056/my/account" target="_blank" 
+               class="group relative block rounded-3xl transition-all duration-300 transform hover:-translate-y-2.5 active:translate-y-1">
+                
+                <!-- Sombra de Neón 3D trasera -->
+                <div class="absolute inset-0 bg-[#f107a3]/0 rounded-3xl blur-2xl group-hover:bg-[#f107a3]/15 transition-all duration-300"></div>
+                
+                <!-- Cuerpo de la tarjeta -->
+                <div class="glass-card rounded-3xl p-6 flex flex-col items-center text-center border-b-[6px] border-b-pink-950 hover:border-b-[#f107a3] transition-all duration-300">
+                    
+                    <!-- Contenedor del Logo (Grande e Iluminado) -->
+                    <div class="relative w-full h-44 bg-slate-950/50 border border-white/5 rounded-2xl flex items-center justify-center p-6 shadow-[inset_0_4px_20px_rgba(0,0,0,0.7)] group-hover:border-[#f107a3]/30 transition-colors mb-6">
+                        <img src="logo-jellyfin.png" alt="Jellyfin 2" class="h-28 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(241,7,163,0.6)] group-hover:scale-110 transition-all duration-300">
+                        
+                        <!-- Etiqueta técnica de Puerto -->
+                        <div class="absolute top-3 left-3 flex items-center gap-1.5 bg-pink-500/10 border border-pink-500/30 px-2.5 py-0.5 rounded-full">
+                            <span class="w-1.5 h-1.5 bg-pink-400 rounded-full animate-ping"></span>
+                            <span class="w-1.5 h-1.5 bg-pink-400 rounded-full"></span>
+                            <span class="text-[9px] font-bold text-pink-300 uppercase tracking-widest">SERVER 90</span>
+                        </div>
+                    </div>
+
+                    <!-- Información de Estado e Identificación -->
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="w-2.5 h-2.5 bg-emerald-500 rounded-full animate-pulse shadow-[0_0_8px_#10b981]"></span>
+                        <span class="text-xs tracking-widest text-emerald-400 font-semibold uppercase">SISTEMA ONLINE</span>
+                    </div>
+                    
+                    <h2 class="text-lg font-bold text-white group-hover:text-pink-400 transition-colors tracking-wide">
+                        Jellyfin 2 (90)
+                    </h2>
+                    
+                    <p class="text-xs text-slate-400 font-light mt-2 max-w-xs leading-relaxed">
+                        Control de credenciales y renovación de servicio para el nodo 90.
+                    </p>
+
+                    <!-- Botón de Acción Integrado -->
+                    <div class="mt-6 px-5 py-2.5 bg-white/5 border border-white/10 rounded-full text-xs tracking-wider text-slate-300 group-hover:bg-[#f107a3] group-hover:text-white group-hover:border-[#f107a3] transition-all duration-300 uppercase font-bold shadow-md">
+                        Gestionar Cuenta <i class="fa-solid fa-chevron-right ml-1 text-[10px]"></i>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- Footer / Pie de página -->
+    <footer class="w-full text-center py-8 border-t border-white/5 relative z-10">
+        <p class="text-xs text-slate-500 font-medium">
+            &copy; 2026 <span class="text-slate-400 font-semibold">Video Latino</span> &bull; Premium Experience. Todos los derechos reservados.
         </p>
-
-        <div class="btn-list">
-            <!-- BOTÓN EMBY -->
-            <a href="http://emby.videolatino.net:8056/my/account" target="_blank" class="btn btn-emby">
-                Servidor EMBY VIP
-            </a>
-
-            <!-- BOTÓN JELLYFIN 1 -->
-            <a href="http://jelly99.videolatino.net:8056/my/account" target="_blank" class="btn btn-jelly1">
-                Servidor JELLYFIN 1 (99)
-            </a>
-
-            <!-- BOTÓN JELLYFIN 2 -->
-            <a href="http://jelly90.videolatino.net:8056/my/account" target="_blank" class="btn btn-jelly2">
-                Servidor JELLYFIN 2 (90)
-            </a>
-        </div>
-
-        <div class="footer">
-            &copy; 2026 Video Latino &bull; Premium Experience
-        </div>
-    </div>
+    </footer>
 
 </body>
 </html>
